@@ -232,9 +232,9 @@ overflow, and the hero CTA is a single-line anchor with a full-size hit area.
 ## Not done yet
 
 - No Open Graph image. `opengraph-image.js` would need a design pass.
-- `metadataBase` is a placeholder (`https://owaiskhan.dev`), set it to the
-  real domain before launch or social cards will resolve against the wrong
-  host.
+- `metadataBase` is the Vercel address
+  (`https://fiverr-projects-thechamps.vercel.app`); change it when a custom
+  domain is added, or social cards will resolve against the old host.
 - No sitemap or `robots.txt`.
 - The reference site was never loadable from this environment, so the visual
   direction is genre-accurate rather than reference-exact.

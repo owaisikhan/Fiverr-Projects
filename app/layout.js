@@ -20,7 +20,7 @@ const anton = localFont({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://owaiskhan.dev"),
+  metadataBase: new URL("https://fiverr-projects-thechamps.vercel.app"),
   title: {
     default: `${siteConfig.name} · ${siteConfig.role}`,
     template: `%s · ${siteConfig.name}`,

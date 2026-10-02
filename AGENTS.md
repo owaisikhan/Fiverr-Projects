@@ -104,11 +104,11 @@ is no upload page; it was removed on the owner's request in favour of this.
    UI tell you what it is. Fill every field in `deliveries.json` (see
    README's field table): name, tagline (one line), summary (two or three
    sentences), problem, approach, outcome, highlights, improvements, stack,
-   category, platform, kind, year, accent, `featured: true`, and links (live
-   site if one exists, and "Source code" pointing at
-   `https://github.com/owaisikhan/Fiverr-Projects/tree/main/deliveries/<slug>`
-   unless the owner says the client wants it private, then `isPrivate: true`
-   and no source link). Write plainly, say what the client's business gets,
+   category, platform, kind, year, accent, `featured: true`,
+   `source: "deliveries/<slug>"`, and `links` (the live site if one exists).
+   Do not type a "Source code" link: `projects.js` builds it from `source`
+   and `sourceRepo`, and leaves it out when the owner says the client wants
+   the code private (`isPrivate: true`). Write plainly, say what the client's business gets,
    and do not invent numbers or claims the code does not support. Ask the
    owner only for facts the code cannot tell you (client's business, whether
    it is private).

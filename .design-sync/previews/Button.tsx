@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Button } from "owais-portfolio-2";
+import { Button } from "fiverr-projects";
 
 /* This design system is dark-only — globals.css paints the page on
    --color-ink and every colour was picked against it. The preview card's own
@@ -24,7 +24,7 @@ export function Variants() {
       <Button>Start a project</Button>
       <Button variant="outline">See the work</Button>
       <Button variant="ghost">Read the case study</Button>
-      <Button variant="link">owaisikhan on GitHub</Button>
+      <Button variant="link">your-username on GitHub</Button>
     </Frame>
   );
 }

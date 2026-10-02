@@ -6,7 +6,7 @@ reverses or chooses things. Entries promoted into the skill are marked with
 the version they landed in. See the skill's `references/self-improvement.md`
 for the rules.
 
-- **Project:** Owais Khan portfolio (v2, redesign to v3 in progress)
+- **Project:** Jhon portfolio, Fiverr deliveries (v3 "Cutting Room")
 - **Type:** marketing-site (personal portfolio)
 - **Who reads it daily:** prospective clients, mostly small-business owners, on a phone or laptop
 - **Palette exceptions:** none
@@ -22,7 +22,7 @@ for the rules.
 | L-004 | 2026-10-01 | choice | Owner picked the dark film-led "Cutting Room" over the recommended light ledger concept | type: marketing-site | logged |
 | L-005 | 2026-10-01 | rule | Once a direction is picked on the skeleton, build it; no separate visual-design round | all | logged |
 | L-006 | 2026-10-01 | rule | For screenshots and walkthroughs of apps behind login, ask the owner for demo logins or .env.local up front | all | logged |
-| L-007 | 2026-10-01 | rule | Owais's portfolio never mentions Kodexa: no end cards, wordmarks or names | project | project |
+| L-007 | 2026-10-01 | rule | This portfolio never mentions Kodexa: no end cards, wordmarks or names | project | project |
 | L-008 | 2026-10-01 | choice | Portfolio hero video is a multi-project montage in the reel caption style, fitted to the hero's aspect | type: marketing-site | logged |
 | L-009 | 2026-10-02 | reversal | Portfolio now shows Fiverr deliveries only; all earlier projects removed, placeholders until the first upload | project | project |
 | L-010 | 2026-10-02 | gap | Owner wants to publish work from the site itself: an upload page that commits a folder to the repo | type: marketing-site | logged |

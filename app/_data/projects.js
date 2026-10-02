@@ -26,6 +26,12 @@ import deliveries from "@/app/_data/deliveries.json";
  * entries carry no source link on purpose.
  */
 
+/**
+ * PLACEHOLDER: the public repository that holds `deliveries/`. Each delivery's
+ * "Source code" link is built from it, so changing it here updates them all.
+ */
+export const sourceRepo = "https://github.com/your-username/Fiverr-Projects";
+
 export const categories = [
   { key: "business", label: "Business software" },
   { key: "offline", label: "Desktop and Android" },
@@ -60,8 +66,18 @@ const placeholders = [1, 2, 3].map((number, index) => ({
   links: [],
 }));
 
-/** Fills the fields an entry may leave out, so components never guard. */
+/**
+ * Fills the fields an entry may leave out, so components never guard, and
+ * adds the "Source code" link for an entry with a `source` folder unless the
+ * client asked to keep it private.
+ */
 function normalize(entry) {
+  const links = entry.links ?? [];
+  const sourceLink =
+    entry.source && !entry.isPrivate && !links.some((link) => link.label === "Source code")
+      ? [{ label: "Source code", href: `${sourceRepo}/tree/main/${entry.source}` }]
+      : [];
+
   return {
     year: String(new Date().getFullYear()),
     role: "Fiverr order",
@@ -84,6 +100,7 @@ function normalize(entry) {
     stack: [],
     links: [],
     ...entry,
+    links: [...links, ...sourceLink],
   };
 }
 

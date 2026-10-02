@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
   Separator,
-} from "owais-portfolio-2";
+} from "fiverr-projects";
 
 /* Dark-only design system — see Button.tsx. */
 const Frame = ({ children }: { children: React.ReactNode }) => (
