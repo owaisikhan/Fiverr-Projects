@@ -3,10 +3,10 @@ import deliveries from "@/app/_data/deliveries.json";
 /**
  * Every project on the site is an order delivered on Fiverr.
  *
- * Real entries live in `deliveries.json`. The upload page (`/upload`) appends
- * one there and commits the order's code to `deliveries/<slug>/` in the same
- * commit, so the next deploy shows it. Edit that file by hand to correct or
- * remove an entry.
+ * Real entries live in `deliveries.json`, one per order, with the order's
+ * code in `deliveries/<slug>/` and its cover in `public/work/`. They are added
+ * in a Claude Code session from the repo link the owner gives (see "Adding a
+ * delivery" in AGENTS.md). Edit that file by hand to correct or remove one.
  *
  * Until the first delivery lands, three placeholder projects stand in so the
  * layout has something to show. They disappear on their own as soon as
@@ -50,7 +50,7 @@ const placeholders = [1, 2, 3].map((number, index) => ({
   walkthrough: null,
   tagline: "Placeholder. The first delivered Fiverr order takes this spot.",
   summary:
-    "This slot is waiting for a delivered order. Each one is uploaded with its code, a short write-up and a cover, then appears here on its own.",
+    "This slot is waiting for a delivered order. Each one is added with its code, a short write-up and a cover, then appears here on its own.",
   problem: "",
   approach: "",
   outcome: "",
@@ -60,7 +60,7 @@ const placeholders = [1, 2, 3].map((number, index) => ({
   links: [],
 }));
 
-/** Fills the fields an uploaded entry may leave out, so components never guard. */
+/** Fills the fields an entry may leave out, so components never guard. */
 function normalize(entry) {
   return {
     year: String(new Date().getFullYear()),

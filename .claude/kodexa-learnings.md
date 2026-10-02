@@ -26,6 +26,7 @@ for the rules.
 | L-008 | 2026-10-01 | choice | Portfolio hero video is a multi-project montage in the reel caption style, fitted to the hero's aspect | type: marketing-site | logged |
 | L-009 | 2026-10-02 | reversal | Portfolio now shows Fiverr deliveries only; all earlier projects removed, placeholders until the first upload | project | project |
 | L-010 | 2026-10-02 | gap | Owner wants to publish work from the site itself: an upload page that commits a folder to the repo | type: marketing-site | logged |
+| L-011 | 2026-10-02 | reversal | Owner dropped the browser upload page for "send a repo link, Claude adds it with details and screenshots" | type: marketing-site | logged |
 
 ## Entries
 
@@ -105,6 +106,14 @@ for the rules.
 - **Said / saw:** "an upload button that will push and upload the folder/code to the fiverr-projects repo right from the website ... it should take the project name description etc"
 - **Context:** static portfolio, no API routes or env
 - **Lesson:** A static portfolio can publish its own entries: a client page that takes a fine-grained GitHub token, reads a picked or dropped folder, and makes one Git Data API commit (code folder, cover, JSON entry). Send text files inline in tree requests and only binaries as blobs, because GitHub caps content-creating requests at about 80 a minute. Fence the committed code off from ESLint and Tailwind's source scan.
+- **Scope:** type: marketing-site (portfolios)
+- **Target in skill:** references/types/marketing-site.md, section 7 "Content, pages and SEO"
+- **Status:** logged
+
+### L-011 · 2026-10-02 · strong · reversal
+- **Said / saw:** "i think the claude session method is better i will give a project repo link and u will upload the project with all the details and screenshots , add this to your memory for this project , remove the upload button from the site"
+- **Context:** the /upload page (token-based GitHub commit from the browser) hit a fine-grained token permission error on first real use
+- **Lesson:** For a portfolio the owner feeds over time, prefer "owner sends a repo link, a Claude session adds the entry, cover and code" over a self-serve upload form. The session writes better copy and takes real screenshots, and the owner never handles tokens. Record the routine in the repo's AGENTS.md so every session follows it. Refines L-010.
 - **Scope:** type: marketing-site (portfolios)
 - **Target in skill:** references/types/marketing-site.md, section 7 "Content, pages and SEO"
 - **Status:** logged

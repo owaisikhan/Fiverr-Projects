@@ -42,20 +42,6 @@ export const siteConfig = {
     detail: "Fiverr deliveries",
   },
 
-  /**
-   * Where the upload page (/upload) commits a delivered order. `branch` null
-   * means the repository's default branch, which is the one the site deploys
-   * from, so a new delivery goes live on the next deploy.
-   */
-  upload: {
-    owner: "owaisikhan",
-    repo: "Fiverr-Projects",
-    branch: null,
-    folder: "deliveries",
-    data: "app/_data/deliveries.json",
-    covers: "public/work",
-  },
-
   /* About ------------------------------------------------------------------- */
   about: [
     "Most of what I build is not a landing page. It is software that has to be right on a Tuesday afternoon while someone counts cash, reconciles stock or bills a shop on credit. So I care more about the boring parts than the pretty ones: data that cannot go wrong, what happens when the network drops, and a screen the person at the counter can use without training.",
@@ -157,7 +143,7 @@ export const siteConfig = {
 
 /**
  * Proof strip. Every figure is counted from the delivered orders in
- * projects.js (never the placeholders), so an upload updates the numbers and
+ * projects.js (never the placeholders), so a new delivery updates the numbers and
  * they cannot drift from the work shown below them.
  */
 const projects = deliveredProjects;

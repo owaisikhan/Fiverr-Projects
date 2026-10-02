@@ -75,10 +75,8 @@ component is styled correctly with no rewiring. House tokens: `ink`,
 
 ## Content lives in data files, not components
 
-Projects are Fiverr deliveries in `app/_data/deliveries.json`, normally
-written by the upload page (`/upload`), which commits the order's code to
-`deliveries/<slug>/` and the entry in one commit through the GitHub API with a
-token the owner pastes in. `app/_data/projects.js` reads that file, fills
+Projects are Fiverr deliveries in `app/_data/deliveries.json`, added in a
+Claude Code session by the procedure below. `app/_data/projects.js` reads that file, fills
 defaults and falls back to three placeholders while it is empty. Each entry
 generates its index row, its spread when `featured`, its place in the hero
 reel and its case-study page via `generateStaticParams`. Never hard-code a
@@ -87,6 +85,45 @@ project into a component, and never create a route by hand under `app/work/`.
 `deliveries/` is client code, not this site: ESLint ignores it and
 `globals.css` excludes it from Tailwind's source scan (`@source not`). Keep
 both when touching those files.
+
+## Adding a delivery (the owner's chosen workflow, 2026-10-02)
+
+The owner sends a GitHub repo link for a delivered Fiverr order, sometimes
+with notes. That message means: add it to the site, fully, and ship it. There
+is no upload page; it was removed on the owner's request in favour of this.
+
+1. **Get the code.** Attach the repo with `add_repo` (read access) and clone
+   it to the scratchpad. If it cannot be reached, say so and ask for access
+   or a zip; do not guess its contents.
+2. **Copy it into `deliveries/<slug>/`** without `.git`, `node_modules`,
+   `.next`, `dist`/`build` outputs, caches, `.env*` (keep `.env.example`),
+   keys or anything holding secrets. Grep the copy for keys and tokens before
+   committing. Slug: lowercase, hyphenated project name, unique in
+   `deliveries.json`.
+3. **Read it to write the entry.** README, `package.json`, routes, schema and
+   UI tell you what it is. Fill every field in `deliveries.json` (see
+   README's field table): name, tagline (one line), summary (two or three
+   sentences), problem, approach, outcome, highlights, improvements, stack,
+   category, platform, kind, year, accent, `featured: true`, and links (live
+   site if one exists, and "Source code" pointing at
+   `https://github.com/owaisikhan/Fiverr-Projects/tree/main/deliveries/<slug>`
+   unless the owner says the client wants it private, then `isPrivate: true`
+   and no source link). Write plainly, say what the client's business gets,
+   and do not invent numbers or claims the code does not support. Ask the
+   owner only for facts the code cannot tell you (client's business, whether
+   it is private).
+4. **Screenshots.** Capture a 1600x1000 cover with Playwright from the live
+   site, or from a local build when there is none, into
+   `public/work/<slug>.jpg` (JPEG, about 85 quality, under 400 KB) and set
+   `cover`. Pick the screen that shows the product best, not a blank login.
+   For apps behind a login, ask for a demo account or `.env.local` first;
+   never commit either. Hide any Kodexa wordmark.
+5. **Verify** per "Verifying a change" below, including the new case study
+   at 390px (long names in Anton) and `npx eslint .`.
+6. **Ship.** Commit on the session branch, fast-forward `main` to it and push
+   both; Vercel (project `fiverr-projects`, team Champs) deploys `main`.
+   Confirm the project is live on https://fiverr-projects-thechamps.vercel.app
+   and report the link with the cover screenshot.
 
 Site-level copy (name, headline, intro, about, nav, services, process, stack,
 FAQ, hero film, WhatsApp number) lives in `app/_lib/siteConfig.js`. The proof

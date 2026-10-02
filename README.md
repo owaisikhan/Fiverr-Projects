@@ -2,7 +2,7 @@
 
 A dark, film-led portfolio shown to prospective clients. It lists the orders
 I deliver on Fiverr, each with its code in this repository and a case-study
-page. Until the first delivery is uploaded, three placeholder projects
+page. Until the first delivery is added, three placeholder projects
 (Project 1, 2 and 3) hold the layout.
 
 Home page, top to bottom: hero with a camera-style monitor, a strip of four
@@ -52,18 +52,15 @@ app/
     motion/   Reveal, StaggerGroup, KineticHeading, MagneticButton,
               Counter, ScrollProgress, SmoothScroll
     shared/   SectionHeading, ProjectCover, Slate, WhatsAppIcon
-    upload/   UploadForm (the /upload page)
     ui/       shadcn primitives (button, card, badge, accordion, separator)
-  _data/      deliveries.json (delivered orders, written by /upload)
+  _data/      deliveries.json (delivered orders, one entry each)
               projects.js    (reads deliveries, placeholders, categories)
   _lib/       siteConfig.js  (name, copy, nav, services, process, stack, FAQ, stats)
               indexFilter.js (the work index's category filter store)
-              githubUpload.js (commits a delivery through the GitHub API)
               gsap.js        (plugin registration + reduced-motion helper)
               utils.js       (cn())
   _styles/    globals.css    (@theme tokens and global rules)
   work/[slug]/page.js        (case-study pages, statically generated)
-  upload/page.js             (upload a delivery; not indexed)
 deliveries/                  (each delivered order's code, one folder per slug)
 public/work/                 (project covers, 1600x1000)
 docs/PROGRESS.md             (why things are built the way they are)
@@ -79,28 +76,13 @@ npm run start    # serve the production build
 npm run lint
 ```
 
-## Uploading a delivery
+## Adding a delivery
 
-Open `/upload` on the site (or the "Upload a project" button in the Work
-section). It needs a GitHub fine-grained personal access token for
-`owaisikhan/Fiverr-Projects` with **Contents: read and write**; the page links
-to GitHub's token form. The token stays in the browser (session storage, or
-local storage when "Remember" is ticked) and is only sent to `api.github.com`.
-
-Fill in the name, tagline and summary (the rest is optional), pick the project
-folder or drop it on the page, optionally add a 1600x1000 cover, and press
-Upload. One commit lands on the default branch:
-
-```
-deliveries/<slug>/...      the order's code (node_modules, .git, .next, .env* left out)
-public/work/<slug>.<ext>   the cover, when given
-app/_data/deliveries.json  the entry the site renders
-```
-
-The deploy that follows the commit puts the project on the site. Limits: 50 MB
-per file and 150 MB per upload; push anything larger with git and add its
-entry to `deliveries.json` by hand. To correct or remove a delivery, edit
-`deliveries.json` (and delete its folder) in a normal commit.
+Send Claude Code the GitHub link of the delivered project. It copies the code
+into `deliveries/<slug>/` (without dependencies, build output or env files),
+captures a 1600x1000 cover into `public/work/<slug>.jpg`, writes the entry in
+`app/_data/deliveries.json`, checks the build and pushes to `main`, which
+Vercel deploys. The full procedure is "Adding a delivery" in `AGENTS.md`.
 
 ## Editing content
 
@@ -109,8 +91,7 @@ Everything visitor-facing lives in two files:
 - **`app/_lib/siteConfig.js`**: name, availability, headline, intro, about,
   nav, services, process, stack, FAQ, the hero film and the WhatsApp number.
   The four counts in `stats` are computed from the project list.
-- **`app/_data/deliveries.json`**: the delivered orders, written by the upload
-  page. `app/_data/projects.js` reads it, fills defaults and falls back to the
+- **`app/_data/deliveries.json`**: the delivered orders, one entry each. `app/_data/projects.js` reads it, fills defaults and falls back to the
   placeholders while it is empty. Each entry drives its index row, its spread
   (when `featured`), the hero reel and its case-study page. The proof strip
   stays hidden until the first delivery.

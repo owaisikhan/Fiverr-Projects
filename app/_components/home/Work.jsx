@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { ArrowUpRight, Lock, Play, Upload } from "lucide-react";
+import { ArrowUpRight, Lock, Play } from "lucide-react";
 
 import { WorkIndex } from "@/app/_components/home/WorkIndex";
 import { Reveal } from "@/app/_components/motion/Reveal";
 import { ProjectCover } from "@/app/_components/shared/ProjectCover";
 import { SectionHeading } from "@/app/_components/shared/SectionHeading";
 import { Badge } from "@/app/_components/ui/badge";
-import { Button } from "@/app/_components/ui/button";
 import { deliveredProjects, featuredProjects } from "@/app/_data/projects";
 import { cn } from "@/app/_lib/utils";
 
@@ -28,15 +27,7 @@ export function Work() {
             ? `${deliveredProjects.length} ${deliveredProjects.length === 1 ? "order" : "orders"} delivered on Fiverr.`
             : "Fiverr deliveries, added as they ship."
         }
-        lede="Every project here is an order delivered on Fiverr, uploaded with its code and a short write-up the day it ships."
-        aside={
-          <Button asChild variant="outline">
-            <Link href="/upload">
-              <Upload />
-              Upload a project
-            </Link>
-          </Button>
-        }
+        lede="Every project here is an order delivered on Fiverr, added with its code and a short write-up the day it ships."
       />
 
       <div className="mt-12 flex flex-col md:mt-16">

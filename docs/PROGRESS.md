@@ -85,29 +85,21 @@ gallery), the hero film once the reference arrives, the remaining covers.
 
 The owner moved the site to Fiverr work only: every earlier project, its
 covers, its walkthroughs and the hero film (cut from those projects) were
-removed. Three placeholders hold the layout until the first upload and drop
+removed. Three placeholders hold the layout until the first delivery and drop
 out on their own once `deliveries.json` has an entry.
 
-Why the upload page works the way it does:
+Deliveries are added in a Claude Code session from a repo link the owner
+sends (procedure in AGENTS.md). A browser upload page that committed through
+the GitHub API with a pasted token was built first and removed the same day:
+fine-grained token permissions tripped the owner up, and a session can also
+write the case study and take the cover, which the form could not.
 
-- **Browser to GitHub, no server.** The site stays static, so `/upload` talks
-  to the GitHub REST API directly with a fine-grained token the owner pastes
-  in. A visitor without a token can do nothing, and no secret sits in the
-  build or in Vercel.
-- **One commit per delivery** through the Git Data API (ref, tree, commit,
-  ref update with `force: false`), so code, cover and entry land or fail
-  together, and a concurrent push makes it fail rather than overwrite.
-- **Text inline in trees, binaries as blobs.** GitHub caps content-creating
-  requests at about 80 a minute, so one blob per file would stall a normal
-  project. Text files ride inside tree requests in 4 MB chunks; only binary
-  files cost one request each. Rate-limit responses are retried after
-  `Retry-After`.
 - **`deliveries/` is fenced off** from ESLint and from Tailwind's source scan,
   or a client's class names would bloat this site's stylesheet.
 - **The proof strip hides at zero.** A row of zeros proves nothing to a
   client; it reappears with the first delivery.
 
-A delivery marked private on upload gets `isPrivate: true` and no source
+A delivery the client wants private gets `isPrivate: true` and no source
 link: the case study offers a walkthrough call instead.
 
 ## Design direction (v2, superseded by v3 above)

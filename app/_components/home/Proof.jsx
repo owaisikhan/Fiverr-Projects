@@ -5,7 +5,7 @@ import { stats } from "@/app/_lib/siteConfig";
 
 /**
  * Four counts, each derived from projects.js (see `stats` in siteConfig).
- * Hidden until the first delivery is uploaded: a row of zeros proves nothing.
+ * Hidden until the first delivery is added: a row of zeros proves nothing.
  */
 export function Proof() {
   if (deliveredProjects.length === 0) return null;
