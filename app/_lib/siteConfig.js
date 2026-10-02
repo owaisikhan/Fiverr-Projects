@@ -13,7 +13,8 @@ export const siteConfig = {
   initials: "J",
   role: "Full-Stack Product Engineer",
   location: "Australia, working remotely",
-  email: "owasikhan22@gmail.com",
+  /* PLACEHOLDER: replace with the real address before sharing the site. */
+  email: "jhon@example.com",
   github: "https://github.com/owaisikhan",
   /**
    * WhatsApp number in international format with no plus or spaces, e.g.
