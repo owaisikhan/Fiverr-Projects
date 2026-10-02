@@ -8,7 +8,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# Project: Owais Khan, Portfolio (v3 "Cutting Room")
+# Project: Jhon, Portfolio (v3 "Cutting Room")
 
 Built with the kodexa-builder skill (v1.4.0). Load it for any new feature or
 design work, and log preferences, corrections and reversals to

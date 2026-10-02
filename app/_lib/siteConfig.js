@@ -8,11 +8,11 @@ import { deliveredProjects } from "@/app/_data/projects";
  * no filler words, and say what a business gets before naming the stack.
  */
 export const siteConfig = {
-  name: "Owais Khan",
-  shortName: "Owais",
-  initials: "OK",
+  name: "Jhon",
+  shortName: "Jhon",
+  initials: "J",
   role: "Full-Stack Product Engineer",
-  location: "Pakistan, working remotely",
+  location: "Australia, working remotely",
   email: "owasikhan22@gmail.com",
   github: "https://github.com/owaisikhan",
   /**
@@ -183,7 +183,7 @@ export const stats = [
 ];
 
 /** WhatsApp link, or null when no number is configured. */
-export function whatsappHref(message = "Hi Owais, I have a project in mind.") {
+export function whatsappHref(message = "Hi Jhon, I have a project in mind.") {
   if (!siteConfig.whatsapp) return null;
   return `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(message)}`;
 }
