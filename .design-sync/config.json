@@ -1,0 +1,9 @@
+{
+  "pkg": "owais-portfolio-2",
+  "globalName": "PortfolioUI",
+  "shape": "package",
+  "srcDir": "app/_components/ui",
+  "tsconfig": "jsconfig.json",
+  "buildCmd": "node .design-sync/build-css.mjs",
+  "cssEntry": ".design-sync/.cache/compiled.css"
+}

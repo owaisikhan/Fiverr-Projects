@@ -1,0 +1,274 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ---------------------------------------------------------------------------
+   Design tokens: "Cutting Room"
+   ---------------------------------------------------------------------------
+   Tailwind v4: tokens are declared here with @theme. There is no
+   tailwind.config.js and one should not be added.
+
+   The site is an edit suite for the work: a true neutral black (not
+   blue-black), bone white for type, and one tungsten amber used the way a
+   monitor uses its REC light. Tungsten marks timecodes, scene numbers and the
+   live dot, and nothing else; it never fills a button or a headline.
+
+   The shadcn variable names are kept intact so any component copied from
+   shadcn/ui drops in without rewiring.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Palette ---------------------------------------------------------------- */
+  --color-ink: #111111; /* page ground */
+  --color-ink-raised: #1a1918; /* raised surfaces, slates */
+  --color-panel: #262523; /* monitor bezel, chips */
+  --color-ink-line: #2e2d2a; /* hairlines on raised surfaces */
+  --color-bone: #ece9e3; /* type, primary button */
+  --color-bone-dim: #d6d1c7;
+  --color-tungsten: #e6a23c; /* timecodes, scene numbers, the REC dot */
+
+  /* shadcn surface tokens -------------------------------------------------- */
+  --color-background: var(--color-ink);
+  --color-foreground: var(--color-bone);
+  --color-card: var(--color-ink-raised);
+  --color-card-foreground: var(--color-bone);
+  --color-popover: var(--color-ink-raised);
+  --color-popover-foreground: var(--color-bone);
+  --color-primary: var(--color-bone);
+  --color-primary-foreground: var(--color-ink);
+  --color-secondary: var(--color-panel);
+  --color-secondary-foreground: var(--color-bone);
+  --color-muted: var(--color-panel);
+  --color-muted-foreground: #a9a59d; /* 7.6:1 on ink */
+  --color-destructive: #e5484d;
+  --color-destructive-foreground: var(--color-bone);
+  --color-border: rgb(236 233 227 / 13%);
+  --color-input: rgb(236 233 227 / 18%);
+  --color-ring: var(--color-tungsten);
+
+  /* Type ------------------------------------------------------------------- */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-anton), "Arial Narrow", Impact, sans-serif;
+
+  /* Radii: cut, not pillowy ------------------------------------------------ */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.625rem;
+  --radius-2xl: 0.875rem;
+
+  /* Animations ------------------------------------------------------------- */
+  --animate-accordion-down: accordion-down 260ms cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-accordion-up: accordion-up 200ms cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-rec: rec-blink 1.6s steps(1, end) infinite;
+
+  /* Display sizes ---------------------------------------------------------- */
+  /* Anton is condensed and set in capitals, so it runs larger than a normal
+     grotesk at the same line count. Sized by the tighter of width and height,
+     so a 1440x768 laptop keeps the hero's buttons above the fold. */
+  --text-display: clamp(3.25rem, min(7.4vw, 11.2vh), 7.75rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: 0.005em;
+  --text-headline: clamp(2.5rem, min(6.2vw, 10vh), 5.5rem);
+  --text-headline--line-height: 0.92;
+  --text-headline--letter-spacing: 0.005em;
+  --text-title: clamp(1.75rem, 3.4vw, 2.75rem);
+  --text-title--line-height: 0.95;
+  --text-title--letter-spacing: 0.01em;
+  --text-mega: clamp(4rem, 16.5vw, 17rem);
+  --text-mega--line-height: 0.8;
+  --text-mega--letter-spacing: 0;
+}
+
+/* Radix / shadcn expect these on :root as raw custom properties too. */
+:root {
+  --radius: 0.5rem;
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* The fixed navbar must not cover an anchored section heading. Lenis
+       reads this too. */
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+
+    /*
+      `clip`, never `hidden`. On html/body, `overflow-x: hidden` computes
+      overflow-y to `auto`, which turns the element into a scroll container and
+      stops ScrollTrigger from finding the real scroller: every scroll-driven
+      reveal on the page then stays stuck at opacity 0. `clip` trims the same
+      overflow without creating a scroll container.
+    */
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-tungsten);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-tungsten);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Tailwind v4 gives buttons the plain arrow; controls should look pressable. */
+  button:not(:disabled),
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Lenis owns smooth scrolling while it runs; the native smooth behaviour
+   would fight it on every anchor jump. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+@layer components {
+  /* Section shell ---------------------------------------------------------- */
+  .shell {
+    width: 100%;
+    max-width: 86rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Display type: Anton, always in capitals -------------------------------- */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  /* Timecodes, scene numbers, slate fields --------------------------------- */
+  .timecode {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    text-transform: uppercase;
+  }
+
+  /* Raised surface with a hairline: the only "card" on the page ------------ */
+  .panel {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-ink-raised);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reveal pre-hide
+   ---------------------------------------------------------------------------
+   Elements marked [data-reveal] start invisible so GSAP can fade them in from
+   an effect that runs after first paint, with no flash of already-visible
+   content. If the GSAP that reveals them is ever removed they stay invisible
+   forever. The <noscript> block in app/layout.js is the no-JS safety net and
+   must be kept in sync with this rule.
+--------------------------------------------------------------------------- */
+[data-reveal],
+[data-hero-fade],
+[data-stagger] > * {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-hero-fade],
+  [data-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Radix Accordion measures its own content height into this variable. */
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+/* A hard on/off blink, like a camera's tally light, not a soft pulse. */
+@keyframes rec-blink {
+  0%,
+  59% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+/* Thin scrollbar, so the dark ground is not framed in light grey. */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(236 233 227 / 14%);
+    border-radius: 999px;
+    border: 3px solid var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(236 233 227 / 26%);
+  }
+}

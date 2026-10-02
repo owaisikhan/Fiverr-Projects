@@ -1,0 +1,204 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 760 400"
+  width="760"
+  height="400"
+  fill="none"
+  role="img"
+  aria-labelledby="pump-nozzle-title"
+>
+  <title id="pump-nozzle-title">Red fuel pump nozzle with a chrome spout and a falling drop of fuel</title>
+
+  <defs>
+    <linearGradient id="pn-chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8d979e" />
+      <stop offset="18%" stop-color="#e9eef1" />
+      <stop offset="38%" stop-color="#ffffff" />
+      <stop offset="58%" stop-color="#c7cfd4" />
+      <stop offset="80%" stop-color="#8b959c" />
+      <stop offset="100%" stop-color="#5f686e" />
+    </linearGradient>
+
+    <linearGradient id="pn-red" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0%" stop-color="#f04a41" />
+      <stop offset="35%" stop-color="#e02a24" />
+      <stop offset="72%" stop-color="#c4171a" />
+      <stop offset="100%" stop-color="#9d0f14" />
+    </linearGradient>
+
+    <linearGradient id="pn-red-sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.34" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="pn-hose" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b7377" />
+      <stop offset="30%" stop-color="#3a4043" />
+      <stop offset="70%" stop-color="#1d2123" />
+      <stop offset="100%" stop-color="#0d0f10" />
+    </linearGradient>
+
+    <linearGradient id="pn-black-part" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#4a5054" />
+      <stop offset="45%" stop-color="#26292c" />
+      <stop offset="100%" stop-color="#0e1011" />
+    </linearGradient>
+
+    <radialGradient id="pn-drop" cx="0.36" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#fff08a" />
+      <stop offset="45%" stop-color="#ffd21f" />
+      <stop offset="100%" stop-color="#e59a00" />
+    </radialGradient>
+  </defs>
+
+  <!-- ── hose ───────────────────────────────────────────────── -->
+  <path
+    d="M496 256 C 566 300 636 330 712 336 L 764 336"
+    stroke="url(#pn-hose)"
+    stroke-width="32"
+    stroke-linecap="round"
+  />
+  <path
+    d="M508 258 C 572 298 638 324 710 329 L 760 329"
+    stroke="#8b9296"
+    stroke-opacity="0.4"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+
+  <!-- hose collar -->
+  <path
+    d="M470 224 L 520 224 C 532 224 540 234 538 248 L 534 268 C 532 280 522 288 510 288 L 474 288 Z"
+    fill="url(#pn-black-part)"
+  />
+
+  <!-- ── red body ───────────────────────────────────────────── -->
+  <path
+    d="M308 132
+       C 310 102 330 79 362 73
+       L 450 60
+       C 492 54 520 82 522 124
+       L 528 224
+       C 530 258 512 280 478 283
+       L 402 289
+       C 362 292 338 274 332 240
+       L 310 158 Z"
+    fill="url(#pn-red)"
+  />
+  <!-- soft top highlight along the shoulder -->
+  <path
+    d="M316 128 C 320 100 340 82 368 77 L 448 65 C 480 60 504 76 512 104
+       C 486 88 452 84 412 90 C 368 97 336 110 316 128 Z"
+    fill="url(#pn-red-sheen)"
+  />
+  <!-- flat lighter panel on the body face -->
+  <rect
+    x="374"
+    y="96"
+    width="76"
+    height="46"
+    rx="14"
+    fill="#ffffff"
+    fill-opacity="0.12"
+  />
+  <!-- shadow under the body, above the trigger cut-out -->
+  <path
+    d="M336 232 C 372 254 432 262 494 250 L 490 274 C 440 288 376 284 344 262 Z"
+    fill="#8a0d12"
+    fill-opacity="0.35"
+  />
+
+  <!-- ── trigger guard + trigger ────────────────────────────── -->
+  <path
+    d="M362 196
+       L 486 196
+       C 498 196 506 205 506 217
+       L 506 276
+       C 506 289 497 298 484 298
+       L 372 298
+       C 358 298 349 288 349 275
+       L 349 217
+       C 349 205 352 196 362 196 Z
+       M 374 220
+       L 481 220
+       C 486 220 488 223 488 228
+       L 488 266
+       C 488 272 485 275 480 275
+       L 376 275
+       C 371 275 368 272 368 266
+       L 368 228
+       C 368 223 369 220 374 220 Z"
+    fill="url(#pn-black-part)"
+    fill-rule="evenodd"
+  />
+  <!-- light window behind the trigger -->
+  <path
+    d="M374 220 L 481 220 C 486 220 488 223 488 228 L 488 266
+       C 488 272 485 275 480 275 L 376 275 C 371 275 368 272 368 266
+       L 368 228 C 368 223 369 220 374 220 Z"
+    fill="#eef0f1"
+  />
+  <!-- trigger lever inside the guard -->
+  <path
+    d="M368 224
+       C 388 226 400 234 409 247
+       C 418 260 431 266 449 267
+       L 488 267
+       L 488 275 L 368 275 Z"
+    fill="url(#pn-black-part)"
+  />
+  <path
+    d="M368 230 C 386 232 398 240 406 251"
+    stroke="#7d8488"
+    stroke-opacity="0.5"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <!-- guard highlight -->
+  <path
+    d="M362 200 L 484 200 C 493 200 499 206 501 214 L 356 214 C 356 206 356 200 362 200 Z"
+    fill="#ffffff"
+    fill-opacity="0.18"
+  />
+  <!-- pivot pin -->
+  <circle cx="492" cy="288" r="7" fill="#0d0f10" />
+  <circle cx="490" cy="286" r="3" fill="#6f7679" fill-opacity="0.8" />
+
+  <!-- ── chrome spout ───────────────────────────────────────── -->
+  <path
+    d="M132 86 C 172 66 214 62 250 80 C 282 96 302 108 326 120"
+    stroke="url(#pn-chrome)"
+    stroke-width="30"
+    stroke-linecap="round"
+  />
+  <!-- specular line along the top of the tube -->
+  <path
+    d="M140 78 C 176 60 212 57 244 73"
+    stroke="#ffffff"
+    stroke-opacity="0.85"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+  <!-- bore at the tip -->
+  <ellipse cx="130" cy="87" rx="6" ry="13" transform="rotate(-22 130 87)" fill="#59626a" />
+
+  <!-- ribbed collar where the spout meets the body -->
+  <g stroke="#8f989e" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M250 68 C 246 78 246 88 244 98" />
+    <path d="M264 74 C 260 84 260 94 258 104" />
+    <path d="M278 81 C 274 91 274 101 272 111" />
+    <path d="M292 88 C 288 98 288 108 286 118" />
+    <path d="M306 95 C 302 105 302 115 300 125" />
+  </g>
+
+  <!-- ── falling drop ───────────────────────────────────────── -->
+  <path
+    d="M128 118
+       C 128 118 112 140 112 152
+       C 112 163 119 171 128 171
+       C 137 171 144 163 144 152
+       C 144 140 128 118 128 118 Z"
+    fill="url(#pn-drop)"
+  />
+  <ellipse cx="122" cy="153" rx="4" ry="6" fill="#ffffff" fill-opacity="0.6" />
+</svg>

@@ -1,0 +1,50 @@
+/* Design-sync stylesheet entry.
+   ---------------------------------------------------------------------------
+   The app's own globals.css is `@import "tailwindcss"` + `@theme` tokens, so it
+   is not a usable stylesheet on its own — it has to be compiled before the
+   design bundle can ship it. This file is the compile entry: it pulls in the
+   real globals.css unchanged (single source of truth for every token), tells
+   Tailwind which sources to scan for utilities, and adds the two things the
+   Next.js app supplies at runtime that a static bundle cannot: the Geist
+   @font-face rules and the CSS variables next/font would otherwise inject.
+
+   Compiled by .design-sync/build-css.mjs → .design-sync/.cache/compiled.css,
+   which is what cfg.cssEntry points at. */
+
+@import "../app/_styles/globals.css";
+
+/* Utilities are only emitted for classes Tailwind can see, so every source that
+   can name one has to be listed: the ui/ primitives themselves and the authored
+   preview compositions. */
+@source "../app/_components/ui/**/*.jsx";
+@source "../.design-sync/previews/**/*.tsx";
+
+/* next/font sets these two variables in the app; globals.css reads them through
+   --font-sans / --font-mono. Without them the whole bundle renders in a
+   fallback face.
+
+   The url()s point at the real woff2 files so the converter can resolve, copy
+   and rewrite them itself — a bundle-root-relative path here is NOT rewritten
+   correctly, because these rules get extracted into fonts/fonts.css and the
+   path would then resolve one directory too deep. They are relative to the
+   COMPILED file (.design-sync/.cache/compiled.css), not to this one. */
+@font-face {
+  font-family: "Geist";
+  src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-geist-sans: "Geist";
+  --font-geist-mono: "Geist Mono";
+}
