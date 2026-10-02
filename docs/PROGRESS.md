@@ -81,19 +81,34 @@ scroll, no console output.
 Next: the case-study page (walkthrough player with chapters, screenshot
 gallery), the hero film once the reference arrives, the remaining covers.
 
-## Where the project list came from
+## Fiverr deliveries (2026-10-02)
 
-The site exists to show 2026 work, so the list was built by scanning every
-repository the account owns or collaborates on and filtering to 2026 activity.
-The full in/out ledger, including why the course-follow-along repositories
-(`the-wild-oasis`, `Hotel-Website`, `Hotel-Management-App`, `Pizza_Made_BY_US`,
-`react-pizza`) and the scratch repositories (`practice-react`, `test`) are
-excluded, is in the header comment of `app/_data/projects.js`. Keep that
-comment current when the list changes; it is the only record of the decision.
+The owner moved the site to Fiverr work only: every earlier project, its
+covers, its walkthroughs and the hero film (cut from those projects) were
+removed. Three placeholders hold the layout until the first upload and drop
+out on their own once `deliveries.json` has an entry.
 
-Three entries are private client repositories. They carry `links: []` and
-`isPrivate: true` on purpose: a client clicking through to a GitHub 404 looks
-worse than no link at all, so the case study offers a walkthrough call instead.
+Why the upload page works the way it does:
+
+- **Browser to GitHub, no server.** The site stays static, so `/upload` talks
+  to the GitHub REST API directly with a fine-grained token the owner pastes
+  in. A visitor without a token can do nothing, and no secret sits in the
+  build or in Vercel.
+- **One commit per delivery** through the Git Data API (ref, tree, commit,
+  ref update with `force: false`), so code, cover and entry land or fail
+  together, and a concurrent push makes it fail rather than overwrite.
+- **Text inline in trees, binaries as blobs.** GitHub caps content-creating
+  requests at about 80 a minute, so one blob per file would stall a normal
+  project. Text files ride inside tree requests in 4 MB chunks; only binary
+  files cost one request each. Rate-limit responses are retried after
+  `Retry-After`.
+- **`deliveries/` is fenced off** from ESLint and from Tailwind's source scan,
+  or a client's class names would bloat this site's stylesheet.
+- **The proof strip hides at zero.** A row of zeros proves nothing to a
+  client; it reappears with the first delivery.
+
+A delivery marked private on upload gets `isPrivate: true` and no source
+link: the case study offers a walkthrough call instead.
 
 ## Design direction (v2, superseded by v3 above)
 

@@ -1,4 +1,4 @@
-import { projects } from "@/app/_data/projects";
+import { deliveredProjects } from "@/app/_data/projects";
 
 /**
  * Everything visitor-facing that is not a project lives here. Components read
@@ -21,25 +21,38 @@ export const siteConfig = {
    * PLACEHOLDER: waiting on the owner.
    */
   whatsapp: null,
-  availability: "Available for client work",
+  availability: "Taking orders on Fiverr",
 
   /* Hero -------------------------------------------------------------------- */
   headline: ["Software", "businesses", "actually run on."],
   intro:
-    "I build the software a business runs its day on: a petrol pump's books on one laptop with no internet, a pharmacy counter, a hospital ledger, a wholesaler's billing on one phone. Then the stores, AI features and brand sites around them.",
+    "I build the software a business runs its day on: point of sale, ledgers, stores, AI features and brand sites, on the web, Windows or Android. Every project below is an order delivered on Fiverr, with its code.",
 
   /**
-   * Hero film: a 16:10 silent 18 s loop under /public/media, cut from six
-   * projects (Vendrix, Searline, the pump manager, Kinari, Casa Verde and the
-   * espresso bar site). Set `src` to null and the hero monitor plays a reel of
-   * the featured projects' covers instead.
+   * Hero film: a 16:10 silent loop under /public/media. While `src` is null
+   * the hero monitor plays a reel of the featured projects' covers (or
+   * slates) instead. Cut a new showreel once there are a few deliveries.
    */
   heroVideo: {
-    src: "/media/hero.mp4",
-    webm: "/media/hero.webm",
-    poster: "/media/hero-poster.jpg",
-    caption: "Showreel 2026",
-    detail: "Six products",
+    src: null,
+    webm: null,
+    poster: null,
+    caption: "Showreel",
+    detail: "Fiverr deliveries",
+  },
+
+  /**
+   * Where the upload page (/upload) commits a delivered order. `branch` null
+   * means the repository's default branch, which is the one the site deploys
+   * from, so a new delivery goes live on the next deploy.
+   */
+  upload: {
+    owner: "owaisikhan",
+    repo: "Fiverr-Projects",
+    branch: null,
+    folder: "deliveries",
+    data: "app/_data/deliveries.json",
+    covers: "public/work",
   },
 
   /* About ------------------------------------------------------------------- */
@@ -116,15 +129,15 @@ export const siteConfig = {
   faq: [
     {
       q: "Why can't I see the code for some of these projects?",
-      a: "A few are private client repositories, among them the petrol pump systems and the SAAMJ store. Linking them would send you to a 404. I'm happy to walk through the code, the database and the trade-offs on a call.",
+      a: "Some clients ask for their code to stay private, and those orders carry no source link. I'm happy to walk through the approach and the trade-offs on a call.",
     },
     {
-      q: "Do you work alone or with a team?",
-      a: "Both. Most of the work here is built as a two-person team: we take a project from an empty repository to a shipped product together, splitting the build rather than passing tickets back and forth. Some, like Folio and this site, I built on my own.",
+      q: "Can I order through Fiverr?",
+      a: "Yes. Every project on this page was ordered and delivered on Fiverr. Message me there or on email with what you need, and I will reply with a short written scope and a price.",
     },
     {
       q: "Can you build something that runs without the internet?",
-      a: "Yes, and I have shipped three. The Offline Petrol Pump Manager installs like a normal Windows program with its own database inside. Sohana POS runs a wholesaler's billing on one Android phone. The Committee Manager does both.",
+      a: "Yes. I package web apps as Windows programs with Electron and as Android apps with Expo, each with its own database inside, so they install like normal software and keep working with no internet.",
     },
     {
       q: "How do you handle AI features safely?",
@@ -142,9 +155,11 @@ export const siteConfig = {
 };
 
 /**
- * Proof strip. Every figure is counted from projects.js, so adding a project
- * updates the numbers and they cannot drift from the work shown below them.
+ * Proof strip. Every figure is counted from the delivered orders in
+ * projects.js (never the placeholders), so an upload updates the numbers and
+ * they cannot drift from the work shown below them.
  */
+const projects = deliveredProjects;
 const platformFamilies = new Set(
   projects.flatMap((project) =>
     ["Web", "Windows", "Android"].filter((family) => project.platform.includes(family)),
@@ -152,8 +167,8 @@ const platformFamilies = new Set(
 );
 
 export const stats = [
-  { value: String(projects.length), label: "Products shipped in 2026" },
-  { value: String(platformFamilies.size), label: "Platforms: web, Windows and Android" },
+  { value: String(projects.length), label: "Fiverr orders delivered" },
+  { value: String(platformFamilies.size), label: "Platforms delivered on" },
   {
     value: String(projects.filter((project) => project.worksOffline).length),
     label: "Run with no internet at all",

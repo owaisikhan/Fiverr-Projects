@@ -1,8 +1,9 @@
 # Owais Khan: Portfolio (v3, "Cutting Room")
 
-A dark, film-led portfolio shown to prospective clients. It lists 2026 work
-drawn from the repositories I own or build in, with a case-study page per
-project.
+A dark, film-led portfolio shown to prospective clients. It lists the orders
+I deliver on Fiverr, each with its code in this repository and a case-study
+page. Until the first delivery is uploaded, three placeholder projects
+(Project 1, 2 and 3) hold the layout.
 
 Home page, top to bottom: hero with a camera-style monitor, a strip of four
 counts, selected work (six feature spreads), the full filterable index,
@@ -51,14 +52,19 @@ app/
     motion/   Reveal, StaggerGroup, KineticHeading, MagneticButton,
               Counter, ScrollProgress, SmoothScroll
     shared/   SectionHeading, ProjectCover, Slate, WhatsAppIcon
+    upload/   UploadForm (the /upload page)
     ui/       shadcn primitives (button, card, badge, accordion, separator)
-  _data/      projects.js    (every project shown on the site, and categories)
+  _data/      deliveries.json (delivered orders, written by /upload)
+              projects.js    (reads deliveries, placeholders, categories)
   _lib/       siteConfig.js  (name, copy, nav, services, process, stack, FAQ, stats)
               indexFilter.js (the work index's category filter store)
+              githubUpload.js (commits a delivery through the GitHub API)
               gsap.js        (plugin registration + reduced-motion helper)
               utils.js       (cn())
   _styles/    globals.css    (@theme tokens and global rules)
   work/[slug]/page.js        (case-study pages, statically generated)
+  upload/page.js             (upload a delivery; not indexed)
+deliveries/                  (each delivered order's code, one folder per slug)
 public/work/                 (project covers, 1600x1000)
 docs/PROGRESS.md             (why things are built the way they are)
 ```
@@ -73,6 +79,29 @@ npm run start    # serve the production build
 npm run lint
 ```
 
+## Uploading a delivery
+
+Open `/upload` on the site (or the "Upload a project" button in the Work
+section). It needs a GitHub fine-grained personal access token for
+`owaisikhan/Fiverr-Projects` with **Contents: read and write**; the page links
+to GitHub's token form. The token stays in the browser (session storage, or
+local storage when "Remember" is ticked) and is only sent to `api.github.com`.
+
+Fill in the name, tagline and summary (the rest is optional), pick the project
+folder or drop it on the page, optionally add a 1600x1000 cover, and press
+Upload. One commit lands on the default branch:
+
+```
+deliveries/<slug>/...      the order's code (node_modules, .git, .next, .env* left out)
+public/work/<slug>.<ext>   the cover, when given
+app/_data/deliveries.json  the entry the site renders
+```
+
+The deploy that follows the commit puts the project on the site. Limits: 50 MB
+per file and 150 MB per upload; push anything larger with git and add its
+entry to `deliveries.json` by hand. To correct or remove a delivery, edit
+`deliveries.json` (and delete its folder) in a normal commit.
+
 ## Editing content
 
 Everything visitor-facing lives in two files:
@@ -80,8 +109,11 @@ Everything visitor-facing lives in two files:
 - **`app/_lib/siteConfig.js`**: name, availability, headline, intro, about,
   nav, services, process, stack, FAQ, the hero film and the WhatsApp number.
   The four counts in `stats` are computed from the project list.
-- **`app/_data/projects.js`**: the project list. Each entry drives its index
-  row, its spread (when `featured`), the hero reel and its case-study page.
+- **`app/_data/deliveries.json`**: the delivered orders, written by the upload
+  page. `app/_data/projects.js` reads it, fills defaults and falls back to the
+  placeholders while it is empty. Each entry drives its index row, its spread
+  (when `featured`), the hero reel and its case-study page. The proof strip
+  stays hidden until the first delivery.
 
 ### Project fields
 
@@ -104,8 +136,6 @@ Everything visitor-facing lives in two files:
 | `accent` | The project's colour, used for its slate stripes and highlight ticks |
 | `kind`, `role`, `year` | Metadata on the case study |
 
-The header comment in `projects.js` records which repositories were considered
-and why each is in or out. Keep it current when the list changes.
 
 ### Covers
 
@@ -115,7 +145,9 @@ viewport. Set `cover` on the project and the slate disappears everywhere.
 
 ### Videos
 
-- **Hero film** (`public/media/hero.*`): an 18 s silent loop at 1280x800 cut
+- **Hero film**: none yet; the earlier showreel was cut from projects that are
+  no longer shown. With `siteConfig.heroVideo.src` null the monitor plays a
+  reel of featured covers or slates. A new one follows the old recipe: an 18 s silent loop at 1280x800 cut
   from six projects, 3.4 s each with 0.4 s cross-fades and a cross-faded loop
   point so it has no visible seam. Each clip was recorded frame-exactly from a
   local build with the kodexa-reels `scrollrec.js` (1024x640 at 1.5625x) and

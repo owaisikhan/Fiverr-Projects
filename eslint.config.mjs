@@ -10,6 +10,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Delivered orders' code, committed by the upload page; not this site's.
+    "deliveries/**",
   ]),
 ]);
 

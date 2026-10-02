@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { ArrowUpRight, Lock, Play } from "lucide-react";
+import { ArrowUpRight, Lock, Play, Upload } from "lucide-react";
 
 import { WorkIndex } from "@/app/_components/home/WorkIndex";
 import { Reveal } from "@/app/_components/motion/Reveal";
 import { ProjectCover } from "@/app/_components/shared/ProjectCover";
 import { SectionHeading } from "@/app/_components/shared/SectionHeading";
 import { Badge } from "@/app/_components/ui/badge";
-import { featuredProjects, projects } from "@/app/_data/projects";
+import { Button } from "@/app/_components/ui/button";
+import { deliveredProjects, featuredProjects } from "@/app/_data/projects";
 import { cn } from "@/app/_lib/utils";
 
 /**
@@ -22,8 +23,20 @@ export function Work() {
       <SectionHeading
         scene="01"
         label="Selected work"
-        title={`${projects.length} products shipped in 2026.`}
-        lede="Client software and team projects from the repositories I own or build in. Practice, course and clone repositories are left out: everything here is something a business uses."
+        title={
+          deliveredProjects.length > 0
+            ? `${deliveredProjects.length} ${deliveredProjects.length === 1 ? "order" : "orders"} delivered on Fiverr.`
+            : "Fiverr deliveries, added as they ship."
+        }
+        lede="Every project here is an order delivered on Fiverr, uploaded with its code and a short write-up the day it ships."
+        aside={
+          <Button asChild variant="outline">
+            <Link href="/upload">
+              <Upload />
+              Upload a project
+            </Link>
+          </Button>
+        }
       />
 
       <div className="mt-12 flex flex-col md:mt-16">
@@ -63,6 +76,7 @@ function Spread({ project, take, flip }) {
           <span className="text-tungsten">Take {String(take).padStart(2, "0")}</span>
           <span>{project.platform}</span>
           <span>{project.year}</span>
+          {project.placeholder ? <span>Placeholder</span> : null}
           {project.isPrivate ? (
             <span className="inline-flex items-center gap-1.5">
               <Lock className="size-3" />

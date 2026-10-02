@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Delivered orders' code is committed under /deliveries; its class names must
+   not end up in this site's stylesheet. */
+@source not "../../deliveries";
+
 /* ---------------------------------------------------------------------------
    Design tokens: "Cutting Room"
    ---------------------------------------------------------------------------

@@ -15,8 +15,8 @@ import {
 import { cn } from "@/app/_lib/utils";
 
 /**
- * Every project as one numbered row, filterable by category. Sixteen projects
- * do not fit as cards; an index does. Numbers are each project's position in
+ * Every project as one numbered row, filterable by category. A growing list
+ * of orders does not fit as cards; an index does. Numbers are each project's position in
  * projects.js, so a row keeps its number whatever the filter.
  */
 export function WorkIndex() {

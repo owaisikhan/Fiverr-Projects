@@ -37,13 +37,14 @@ export default async function ProjectPage({ params }) {
   if (!project) notFound();
 
   const index = projects.findIndex((entry) => entry.slug === slug);
-  const next = projects[(index + 1) % projects.length];
+  // With a single project there is no "next" one to point to.
+  const next = projects.length > 1 ? projects[(index + 1) % projects.length] : null;
 
   const body = [
     { label: "The problem", text: project.problem },
     { label: "The approach", text: project.approach },
     { label: "The outcome", text: project.outcome },
-  ];
+  ].filter((block) => block.text);
 
   return (
     <article className="pt-32 pb-8 md:pt-40">
@@ -96,15 +97,15 @@ export default async function ProjectPage({ params }) {
                   </a>
                 </Button>
               ))
-            ) : (
-              /* Private client work carries no repo link on purpose: see the
+            ) : project.isPrivate ? (
+              /* Private client work carries no source link on purpose: see the
                  note at the top of app/_data/projects.js. */
               <p className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Lock className="size-4 shrink-0" />
-                The source lives in a private client repository. Happy to walk
+                The client asked to keep this source private. Happy to walk
                 through the code and the schema on a call.
               </p>
-            )}
+            ) : null}
           </Reveal>
         </div>
       </header>
@@ -119,7 +120,7 @@ export default async function ProjectPage({ params }) {
 
       {/* Body -------------------------------------------------------------- */}
       <div className="shell grid gap-14 py-16 md:py-20 lg:grid-cols-[1.35fr_0.65fr] lg:gap-20">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 empty:hidden">
           {body.map((block) => (
             <Reveal key={block.label} className="flex flex-col gap-4">
               <h2 className="font-mono text-xs tracking-[0.18em] text-tungsten uppercase">
@@ -131,29 +132,31 @@ export default async function ProjectPage({ params }) {
             </Reveal>
           ))}
 
-          <Reveal className="flex flex-col gap-5">
-            <h2 className="font-mono text-xs tracking-[0.18em] text-tungsten uppercase">
-              Highlights
-            </h2>
-            <ul className="flex flex-col gap-3">
-              {project.highlights.map((highlight) => (
-                <li key={highlight} className="flex items-start gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="mt-1 grid size-5 shrink-0 place-items-center rounded-full border"
-                    style={{
-                      borderColor: `color-mix(in oklab, ${project.accent} 45%, transparent)`,
-                    }}
-                  >
-                    <Check className="size-3" style={{ color: project.accent }} />
-                  </span>
-                  <span className="leading-relaxed text-muted-foreground">
-                    {highlight}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          {project.highlights.length ? (
+            <Reveal className="flex flex-col gap-5">
+              <h2 className="font-mono text-xs tracking-[0.18em] text-tungsten uppercase">
+                Highlights
+              </h2>
+              <ul className="flex flex-col gap-3">
+                {project.highlights.map((highlight) => (
+                  <li key={highlight} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-1 grid size-5 shrink-0 place-items-center rounded-full border"
+                      style={{
+                        borderColor: `color-mix(in oklab, ${project.accent} 45%, transparent)`,
+                      }}
+                    >
+                      <Check className="size-3" style={{ color: project.accent }} />
+                    </span>
+                    <span className="leading-relaxed text-muted-foreground">
+                      {highlight}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ) : null}
 
           {project.improvements?.length ? (
             <Reveal className="flex flex-col gap-5 rounded-lg border border-dashed border-border p-6">
@@ -226,31 +229,33 @@ export default async function ProjectPage({ params }) {
         </aside>
       </div>
 
-      <Separator />
+      {next ? <Separator /> : null}
 
       {/* Next project ------------------------------------------------------ */}
-      <StaggerGroup className="shell py-16 md:py-20">
-        <Link
-          href={`/work/${next.slug}`}
-          className="panel group flex flex-col gap-4 p-8 transition-colors duration-300 hover:border-white/25 md:p-12"
-        >
-          <span className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
-            Next project
-          </span>
-          <span className="flex flex-wrap items-center justify-between gap-4">
-            <span className="display text-headline">
-              {next.name}
+      {next ? (
+        <StaggerGroup className="shell py-16 md:py-20">
+          <Link
+            href={`/work/${next.slug}`}
+            className="panel group flex flex-col gap-4 p-8 transition-colors duration-300 hover:border-white/25 md:p-12"
+          >
+            <span className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
+              Next project
             </span>
-            <span
-              aria-hidden="true"
-              className="grid size-12 shrink-0 place-items-center rounded-md border border-border transition-all duration-300 group-hover:border-transparent group-hover:bg-bone group-hover:text-ink"
-            >
-              <ArrowUpRight className="size-5" />
+            <span className="flex flex-wrap items-center justify-between gap-4">
+              <span className="display text-headline">
+                {next.name}
+              </span>
+              <span
+                aria-hidden="true"
+                className="grid size-12 shrink-0 place-items-center rounded-md border border-border transition-all duration-300 group-hover:border-transparent group-hover:bg-bone group-hover:text-ink"
+              >
+                <ArrowUpRight className="size-5" />
+              </span>
             </span>
-          </span>
-          <span className="max-w-2xl text-muted-foreground">{next.tagline}</span>
-        </Link>
-      </StaggerGroup>
+            <span className="max-w-2xl text-muted-foreground">{next.tagline}</span>
+          </Link>
+        </StaggerGroup>
+      ) : null}
     </article>
   );
 }

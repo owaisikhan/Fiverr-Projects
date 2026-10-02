@@ -12,7 +12,7 @@ export function ServiceProjectsLink({ category, count }) {
       onClick={() => setIndexFilter(category)}
       className="inline-flex h-11 items-center gap-2 self-start text-sm font-medium whitespace-nowrap text-bone transition-colors hover:text-tungsten"
     >
-      See {count} projects
+      See {count} {count === 1 ? "project" : "projects"}
       <ArrowDown className="size-4" />
     </a>
   );

@@ -1,9 +1,15 @@
 import { Counter } from "@/app/_components/motion/Counter";
 import { StaggerGroup } from "@/app/_components/motion/StaggerGroup";
+import { deliveredProjects } from "@/app/_data/projects";
 import { stats } from "@/app/_lib/siteConfig";
 
-/** Four counts, each derived from projects.js (see `stats` in siteConfig). */
+/**
+ * Four counts, each derived from projects.js (see `stats` in siteConfig).
+ * Hidden until the first delivery is uploaded: a row of zeros proves nothing.
+ */
 export function Proof() {
+  if (deliveredProjects.length === 0) return null;
+
   return (
     <section aria-label="In numbers" className="shell pb-6 md:pb-8">
       <StaggerGroup className="grid grid-cols-2 border-y border-border lg:grid-cols-4">

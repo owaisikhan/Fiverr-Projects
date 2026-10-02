@@ -17,9 +17,10 @@ design work, and log preferences, corrections and reversals to
 Palette exceptions: dark, pink, cyan, purple (dark: the owner chose the "Cutting Room" direction on 2026-10-01; the others are per-project accents shown only on each project's slate stripes and highlight ticks)
 
 A dark, film-led portfolio built on shadcn/ui, Motion, GSAP and Lenis, showing
-2026 client and team work to prospective clients. Static: no database, no
+orders delivered on Fiverr to prospective clients. Static: no database, no
 environment variables, no API routes. Images are the project covers in
-`public/work`.
+`public/work`. The owner cleared all earlier work on 2026-10-02; only Fiverr
+deliveries are shown from now on, with three placeholders until the first.
 
 **Read `README.md` first**: it covers the design, the stack, the folder layout
 and the two content files that drive every page. **`docs/PROGRESS.md`**
@@ -74,11 +75,18 @@ component is styled correctly with no rewiring. House tokens: `ink`,
 
 ## Content lives in data files, not components
 
-Adding or editing a project means editing `app/_data/projects.js` only. Each
-entry generates its index row, its spread when `featured`, its place in the
-hero reel and its case-study page via `generateStaticParams`. Never hard-code
-a project into a component, and never create a route by hand under
-`app/work/`.
+Projects are Fiverr deliveries in `app/_data/deliveries.json`, normally
+written by the upload page (`/upload`), which commits the order's code to
+`deliveries/<slug>/` and the entry in one commit through the GitHub API with a
+token the owner pastes in. `app/_data/projects.js` reads that file, fills
+defaults and falls back to three placeholders while it is empty. Each entry
+generates its index row, its spread when `featured`, its place in the hero
+reel and its case-study page via `generateStaticParams`. Never hard-code a
+project into a component, and never create a route by hand under `app/work/`.
+
+`deliveries/` is client code, not this site: ESLint ignores it and
+`globals.css` excludes it from Tailwind's source scan (`@source not`). Keep
+both when touching those files.
 
 Site-level copy (name, headline, intro, about, nav, services, process, stack,
 FAQ, hero film, WhatsApp number) lives in `app/_lib/siteConfig.js`. The proof

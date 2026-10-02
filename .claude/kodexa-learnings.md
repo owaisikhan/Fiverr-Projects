@@ -24,6 +24,8 @@ for the rules.
 | L-006 | 2026-10-01 | rule | For screenshots and walkthroughs of apps behind login, ask the owner for demo logins or .env.local up front | all | logged |
 | L-007 | 2026-10-01 | rule | Owais's portfolio never mentions Kodexa: no end cards, wordmarks or names | project | project |
 | L-008 | 2026-10-01 | choice | Portfolio hero video is a multi-project montage in the reel caption style, fitted to the hero's aspect | type: marketing-site | logged |
+| L-009 | 2026-10-02 | reversal | Portfolio now shows Fiverr deliveries only; all earlier projects removed, placeholders until the first upload | project | project |
+| L-010 | 2026-10-02 | gap | Owner wants to publish work from the site itself: an upload page that commits a folder to the repo | type: marketing-site | logged |
 
 ## Entries
 
@@ -89,4 +91,20 @@ for the rules.
 - **Lesson:** A portfolio hero film is a montage of 3 to 4 s clips from several products, each with one reel-style caption, re-recorded at the hero's own aspect (not letterboxed phone footage), cross-faded, with a seamless loop point and no end card. kodexa-reels scrollrec.js with VIEW=1024x640 DSF=1.5625 gives 1600x1000 desktop frames; WebGL sites need swiftshader flags and DSF 1.
 - **Scope:** type: marketing-site (portfolios)
 - **Target in skill:** kodexa-reels references/recipes.md (new recipe: hero montage), kodexa-builder marketing-site.md section 5 "Video heroes"
+- **Status:** logged
+
+### L-009 · 2026-10-02 · strong · reversal
+- **Said / saw:** "clean the repo from all the listed projects that i have done uptill now off the platform ... from now on in the future i will upload the projects that i actually deliver on the fiverr platform"
+- **Context:** Fiverr-Projects copy of the v3 portfolio
+- **Lesson:** This site shows Fiverr deliveries only. Earlier projects, covers, walkthroughs and the hero film were removed; Project 1, 2 and 3 placeholders stand in until `deliveries.json` has an entry. Copy that named old projects (intro, FAQ) was rewritten generically.
+- **Scope:** project
+- **Target in skill:** none (project content)
+- **Status:** project
+
+### L-010 · 2026-10-02 · medium · gap
+- **Said / saw:** "an upload button that will push and upload the folder/code to the fiverr-projects repo right from the website ... it should take the project name description etc"
+- **Context:** static portfolio, no API routes or env
+- **Lesson:** A static portfolio can publish its own entries: a client page that takes a fine-grained GitHub token, reads a picked or dropped folder, and makes one Git Data API commit (code folder, cover, JSON entry). Send text files inline in tree requests and only binaries as blobs, because GitHub caps content-creating requests at about 80 a minute. Fence the committed code off from ESLint and Tailwind's source scan.
+- **Scope:** type: marketing-site (portfolios)
+- **Target in skill:** references/types/marketing-site.md, section 7 "Content, pages and SEO"
 - **Status:** logged
