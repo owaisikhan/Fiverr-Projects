@@ -15,7 +15,8 @@ export const siteConfig = {
   location: "Australia, working remotely",
   /* PLACEHOLDER: replace with the real address before sharing the site. */
   email: "jhon@example.com",
-  github: "https://github.com/owaisikhan",
+  /* PLACEHOLDER: replace with the real GitHub profile before sharing the site. */
+  github: "https://github.com/your-username",
   /**
    * WhatsApp number in international format with no plus or spaces, e.g.
    * "923001234567". Leave null and the WhatsApp buttons are not rendered.
